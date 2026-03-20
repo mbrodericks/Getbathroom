@@ -98,16 +98,26 @@
       align-items: center;
       justify-content: space-between;
       height: 62px;
+      padding: 0 16px;
+      gap: 12px;
     }
 
     .logo {
-      font-size: 1.28rem;
+      font-size: 1.4rem;
       font-weight: 800;
-      letter-spacing: -.55px;
+      letter-spacing: -.5px;
       text-decoration: none;
       color: var(--blue);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .logo span { color: var(--gray-900); }
+    .logo .dotcom {
+      font-size: .8em;
+      font-weight: 700;
+      color: var(--gray-500);
+      margin-left: 2px;
+    }
 
     .btn-hdr {
       font-family: var(--font);
@@ -129,16 +139,17 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 4px;
+      gap: 3px;
+      flex-shrink: 0;
     }
 
     .call-text {
-      font-size: .7rem;
+      font-size: .65rem;
       font-weight: 600;
       color: #ffffff;
       background: #dc2626;
-      padding: 4px 10px;
-      border-radius: 6px;
+      padding: 3px 8px;
+      border-radius: 5px;
       white-space: nowrap;
     }
 
@@ -148,22 +159,17 @@
       color: #ffffff;
       font-family: var(--font);
       font-weight: 800;
-      font-size: .9rem;
-      padding: 10px 14px;
-      border-radius: 10px;
+      font-size: .85rem;
+      padding: 8px 12px;
+      border-radius: 8px;
       text-decoration: none;
-      box-shadow: 0 6px 16px rgba(220,38,38,.4);
+      box-shadow: 0 4px 12px rgba(220,38,38,.35);
       transition: transform .15s ease, box-shadow .15s ease;
       white-space: nowrap;
     }
 
-    .call-btn:hover  { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(220,38,38,.5); }
-    .call-btn:active { transform: none; box-shadow: 0 4px 12px rgba(220,38,38,.35); }
-
-    @media (max-width: 599px) {
-      .call-text { font-size: .65rem; padding: 3px 8px; }
-      .call-btn  { font-size: .85rem; padding: 9px 12px; }
-    }
+    .call-btn:hover  { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(220,38,38,.45); }
+    .call-btn:active { transform: none; box-shadow: 0 3px 8px rgba(220,38,38,.3); }
 
     /* ─────────────────── HERO ──────────────────── */
     #hero {
@@ -809,8 +815,8 @@
 
   <!-- ══ HEADER ══════════════════════════════════════ -->
   <header id="hdr">
-    <div class="wrap hdr-in">
-      <a class="logo" href="#"><span>Get</span>Bathroom</a>
+    <div class="hdr-in">
+      <a class="logo" href="#"><span>Get</span>Bathroom<span class="dotcom">.com</span></a>
       <div class="call-cta">
         <span class="call-text">⚡ Need Help Now?</span>
         <a href="tel:+19566803843" class="call-btn">📞 Call Now</a>
