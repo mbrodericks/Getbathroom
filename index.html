@@ -317,6 +317,7 @@
 
     /* zip error floats below the search bar */
     #e-fz {
+      color: #fca5a5;
       margin-left: 4px;
       margin-bottom: 6px;
     }
@@ -367,6 +368,42 @@
     }
     #btn-sub.loading .btxt, .btn-sub.loading .btxt { display: none; }
     #btn-sub.loading .spin, .btn-sub.loading .spin { display: block; }
+    .loading-text { display: none; font-weight: 600; }
+    #btn-sub.loading .loading-text { display: inline; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .trust-micro {
+      text-align: center;
+      font-size: .73rem;
+      color: rgba(255,255,255,.5);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    /* success */
+    #ok {
+      display: none;
+      text-align: center;
+      padding: 28px 24px;
+      background: var(--white);
+      border-radius: var(--r-xl);
+      box-shadow: var(--sh-lg);
+      animation: up .4s cubic-bezier(.22,1,.36,1) both;
+    }
+    #ok.on { display: block; }
+    @keyframes up { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+
+    .ok-icon {
+      width: 68px; height: 68px;
+      background: var(--green-light);
+      border: 2px solid var(--green-border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 16px;
+    }
+    #ok h3 { font-size: 1.2rem; font-weight: 800; color: var(--gray-900); margin-bottom: 8px; }
+    #ok p  { font-size: .92rem; color: var(--gray-500); line-height: 1.6; }
 
 
     /* ─────────────────── STEP 1 TRUST LINE ────────── */
@@ -382,9 +419,6 @@
     /* ─────────────────── STEP 2 REVEAL ─────────── */
     #s2 {
       display: none;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity .25s ease, transform .25s ease;
       background: var(--white);
       border-radius: var(--r-xl);
       padding: 24px 22px 20px;
@@ -394,8 +428,6 @@
     }
     #s2.open {
       display: block;
-      opacity: 1;
-      transform: translateY(0);
     }
     .s2-divider {
       display: flex; align-items: center; gap: 10px;
@@ -755,7 +787,7 @@
               <span class="loading-text">Checking…</span>
             </button>
           </div>
-          <div class="emsg" id="e-fz" style="color:#fca5a5; margin-top:6px; margin-left:4px;">⚠ Enter a valid 5-digit zip.</div>
+          <div class="emsg" id="e-fz">⚠ Enter a valid 5-digit zip.</div>
 
           <p class="s1-trust">✔ No spam. Just matched contractors.</p>
 
@@ -783,8 +815,8 @@
                   <option value="Remodel">Bathroom Remodel</option>
                   <option value="Shower Upgrade">Shower Upgrade</option>
                   <option value="Tub Replacement">Tub Replacement</option>
+                  <option value="Walk-in Tub">Walk-in Tub</option>
                   <option value="Full Renovation">Full Renovation</option>
-                  <option value="Walk-In Tub">Walk-In Tub</option>
                 </select>
                 <div class="emsg" id="e-fpt">⚠ Please select a project type.</div>
               </div>
@@ -802,7 +834,7 @@
 
             </div>
 
-            <button type="button" class="btn-sub" id="btn-submit2">
+            <button type="submit" class="btn-sub" id="btn-submit2">
               <span class="btxt">Match Me With Contractors →</span>
               <span class="spin"></span>
             </button>
@@ -950,13 +982,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
 
-      /* ── Lead store ─────────────────────────────────────────────── */
-      var leads = [];
-
-      /* ── Helper: safe event binding ─────────────────────────────── */
-      function on(el, evt, fn) { if (el) el.addEventListener(evt, fn); }
-
-      /* ── Gallery ────────────────────────────────────────────────── */
+      /* ── Gallery tiles ──────────────────────────────────────────── */
       var TILES = [
         { label: 'Walk-In Shower Upgrade',  icon: '🚿', g: ['#1e40af', '#3b82f6'] },
         { label: 'Tub Replacement',          icon: '🛁', g: ['#5b21b6', '#8b5cf6'] },
@@ -968,45 +994,48 @@
         TILES.forEach(function (t) {
           var d = document.createElement('div');
           d.className = 'gtile';
-          d.innerHTML =
-            '<div class="gtile-in" style="background:linear-gradient(135deg,' + t.g[0] + ',' + t.g[1] + ')">' +
-              '<span class="gtile-icon">' + t.icon + '</span>' +
-              '<span class="gtile-label">' + t.label + '</span>' +
-            '</div>';
+          d.innerHTML = '<div class="gtile-in" style="background:linear-gradient(135deg,' + t.g[0] + ',' + t.g[1] + ')"><span class="gtile-icon">' + t.icon + '</span><span class="gtile-label">' + t.label + '</span></div>';
           galGrid.appendChild(d);
         });
       }
 
-      /* ── Field references ───────────────────────────────────────── */
-      var fn      = document.getElementById('fn');
-      var fz      = document.getElementById('fz');
-      var fp      = document.getElementById('fp');
-      var fpt     = document.getElementById('fpt');
-      var ftl     = document.getElementById('ftl');
-      var form    = document.getElementById('lead-form');
-      var btn1    = document.getElementById('btn-sub');      // search bar button
-      var btn2    = document.getElementById('btn-submit2');  // step 2 submit button
-      var okBox   = document.getElementById('ok');
-      var s1El    = document.getElementById('s1');
-      var s2El    = document.getElementById('s2');
+      /* ── Element refs ───────────────────────────────────────────── */
+      var fz   = document.getElementById('fz');
+      var fn   = document.getElementById('fn');
+      var fp   = document.getElementById('fp');
+      var fpt  = document.getElementById('fpt');
+      var ftl  = document.getElementById('ftl');
+      var form = document.getElementById('lead-form');
+      var btn1 = document.getElementById('btn-sub');
+      var btn2 = document.getElementById('btn-submit2');
+      var s2   = document.getElementById('s2');
+      var okBox = document.getElementById('ok');
 
-      /* ── Error helpers ──────────────────────────────────────────── */
-      function setErr(el, eid, show) {
-        var m = document.getElementById(eid);
-        if (!el || !m) return;
-        el.classList.toggle('err', show);
-        m.classList.toggle('on', show);
+      /* ── Inline error display ───────────────────────────────────── */
+      function showErr(inputEl, msgId) {
+        if (inputEl) inputEl.classList.add('err');
+        var m = document.getElementById(msgId);
+        if (m) m.classList.add('on');
       }
-      function clr(el, eid) { setErr(el, eid, false); }
+      function clearErr(inputEl, msgId) {
+        if (inputEl) inputEl.classList.remove('err');
+        var m = document.getElementById(msgId);
+        if (m) m.classList.remove('on');
+      }
 
-      on(fn,  'input',  function () { clr(fn,  'e-fn');  });
-      on(fz,  'input',  function () { clr(fz,  'e-fz');  });
-      on(fp,  'input',  function () { clr(fp,  'e-fp');  });
-      on(fpt, 'change', function () { clr(fpt, 'e-fpt'); });
-      on(ftl, 'change', function () { clr(ftl, 'e-ftl'); });
+      fz  && fz.addEventListener('input',  function () { clearErr(fz,  'e-fz');  });
+      fn  && fn.addEventListener('input',  function () { clearErr(fn,  'e-fn');  });
+      fp  && fp.addEventListener('input',  function () { clearErr(fp,  'e-fp');  });
+      fpt && fpt.addEventListener('change',function () { clearErr(fpt, 'e-fpt'); });
+      ftl && ftl.addEventListener('change',function () { clearErr(ftl, 'e-ftl'); });
+
+      /* ── Zip: digits only ───────────────────────────────────────── */
+      fz && fz.addEventListener('input', function () {
+        fz.value = fz.value.replace(/\D/g, '').slice(0, 5);
+      });
 
       /* ── Phone auto-format ──────────────────────────────────────── */
-      on(fp, 'input', function () {
+      fp && fp.addEventListener('input', function () {
         var d = fp.value.replace(/\D/g, '').slice(0, 10);
         if      (d.length >= 7) fp.value = '(' + d.slice(0,3) + ') ' + d.slice(3,6) + '-' + d.slice(6);
         else if (d.length >= 4) fp.value = '(' + d.slice(0,3) + ') ' + d.slice(3);
@@ -1014,150 +1043,97 @@
         else                    fp.value = '';
       });
 
-      /* ── Zip: digits only ───────────────────────────────────────── */
-      on(fz, 'input', function () {
-        fz.value = fz.value.replace(/\D/g, '').slice(0, 5);
-      });
-
-      /* ── Also trigger step 1 on Enter key in zip field ─────────── */
-      on(fz, 'keydown', function (e) {
-        if (e.key === 'Enter') { e.preventDefault(); revealStep2(); }
-      });
-
-      /* ── Step 1 validation (zip only) ───────────────────────────── */
-      function validateStep1() {
-        if (!fz || !/^\d{5}$/.test(fz.value.trim())) {
-          setErr(fz, 'e-fz', true);
-          return false;
-        }
-        return true;
-      }
-
-      /* ── Step 2 validation ──────────────────────────────────────── */
-      function validateStep2() {
-        var ok = true;
-        if (!fn  || fn.value.trim().length < 2)             { setErr(fn,  'e-fn',  true); ok = false; }
-        if (!fp  || fp.value.replace(/\D/g,'').length < 10) { setErr(fp,  'e-fp',  true); ok = false; }
-        if (!fpt || !fpt.value)                              { setErr(fpt, 'e-fpt', true); ok = false; }
-        if (!ftl || !ftl.value)                              { setErr(ftl, 'e-ftl', true); ok = false; }
-        return ok;
-      }
-
-      /* ── Reveal step 2 ──────────────────────────────────────────── */
+      /* ── Step 1: validate zip, show step 2 ─────────────────────── */
       function revealStep2() {
-        if (!validateStep1()) return;
+        clearErr(fz, 'e-fz');
+        if (!fz || !/^\d{5}$/.test(fz.value.trim())) {
+          showErr(fz, 'e-fz');
+          return;
+        }
 
-        /* Brief "Checking availability…" loading state on btn1 */
+        /* Loading state — class only, never mutate innerHTML */
         btn1.classList.add('loading');
         btn1.disabled = true;
 
         setTimeout(function () {
+          /* Show step 2 */
+          s2.style.display = 'block';
+
+          /* Restore btn1 */
           btn1.classList.remove('loading');
           btn1.disabled = false;
 
-          /* Show step 2 card */
-          s2El.style.display = 'block';
-          requestAnimationFrame(function () {
-            requestAnimationFrame(function () {
-              s2El.classList.add('open');
-            });
-          });
-
-          /* Scroll to step 2 */
-          setTimeout(function () {
-            s2El.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }, 60);
-
-          /* Focus first step-2 field */
-          setTimeout(function () { if (fn) fn.focus(); }, 320);
-
+          /* Scroll to step 2, focus first field */
+          s2.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          setTimeout(function () { if (fn) fn.focus(); }, 300);
         }, 600);
       }
 
-      /* ── sendToAPI ── swap in real fetch() here ─────────────────── */
-   function sendToAPI(data) {
-  const formData = new FormData();
+      btn1 && btn1.addEventListener('click', revealStep2);
+      fz   && fz.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); revealStep2(); }
+      });
 
-  formData.append("name", data.fullName);
-  formData.append("phone", data.phone);
-  formData.append("zip", data.zipCode);
-  formData.append("project_type", data.projectType);
-  formData.append("timeline", data.timeline);
-  formData.append("page_url", data.pageUrl);
-  formData.append("source", "GetBathroom.com");
+      /* ── Step 2 submit ──────────────────────────────────────────── */
+      form && form.addEventListener('submit', function (e) {
+        e.preventDefault();
 
-  return fetch("https://usebasin.com/f/c120462e1000", {
-    method: "POST",
-    body: formData
-  })
-  .then(res => {
-    console.log("[Basin] Status:", res.status);
-    return { success: res.ok };
-  })
-  .catch(err => {
-    console.error("[Basin] Error:", err);
-    return { success: false };
-  });
-}
-      /* ── handleLeadSubmit (step 2 final submit) ─────────────────── */
-      function handleLeadSubmit() {
-        if (!validateStep2()) {
-          var first = document.querySelector('#s2 .err');
+        /* Validate all step-2 fields */
+        var valid = true;
+        if (!fn  || fn.value.trim().length < 2)              { showErr(fn,  'e-fn');  valid = false; }
+        if (!fp  || fp.value.replace(/\D/g,'').length < 10)  { showErr(fp,  'e-fp');  valid = false; }
+        if (!fpt || !fpt.value)                               { showErr(fpt, 'e-fpt'); valid = false; }
+        if (!ftl || !ftl.value)                               { showErr(ftl, 'e-ftl'); valid = false; }
+        if (!valid) {
+          var first = s2.querySelector('.err');
           if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
           return;
         }
 
-        var data = {
-          fullName:    fn  ? fn.value.trim()  : '',
-          zipCode:     fz  ? fz.value.trim()  : '',
-          phone:       fp  ? fp.value.trim()  : '',
-          projectType: fpt ? fpt.value        : '',
-          timeline:    ftl ? ftl.value        : '',
-          timestamp:   new Date().toISOString(),
-          pageUrl:     window.location.href,
-        };
+        /* Loading state */
+        btn2.disabled = true;
+        btn2.classList.add('loading');
 
-        /* Loading state on step-2 button */
-        if (btn2) { btn2.classList.add('loading'); btn2.disabled = true; }
+        /* Build FormData */
+        var fd = new FormData();
+        fd.append('name',         fn.value.trim());
+        fd.append('phone',        fp.value.trim());
+        fd.append('zip',          fz.value.trim());
+        fd.append('project_type', fpt.value);
+        fd.append('timeline',     ftl.value);
+        fd.append('page_url',     window.location.href);
+        fd.append('source',       'GetBathroom.com');
 
-        console.log('[GetBathroom] Lead submitted:', JSON.stringify(data, null, 2));
-
-        sendToAPI(data).then(function (res) {
-
-          if (!res || res.success === false) {
-            alert("Something went wrong. Please try again.");
-            if (btn2) { btn2.classList.remove('loading'); btn2.disabled = false; }
-            return;
+        fetch('https://usebasin.com/f/695e05eae9d3', {
+          method: 'POST',
+          body:   fd
+        })
+        .then(function (res) {
+          if (res.ok) {
+            /* Success — hide form, show confirmation */
+            form.style.display = 'none';
+            var fc = document.querySelector('.fc-title');    if (fc) fc.style.display = 'none';
+            var st = document.querySelector('.s1-trust');    if (st) st.style.display = 'none';
+            var tm = document.querySelector('.trust-micro'); if (tm) tm.style.display = 'none';
+            okBox.classList.add('on');
+            var sticky = document.getElementById('sticky');
+            if (sticky) sticky.style.display = 'none';
+          } else {
+            alert('Something went wrong. Please try again.');
+            btn2.disabled = false;
+            btn2.classList.remove('loading');
           }
-
-          console.log("[Basin] Lead sent successfully");
-          leads.push(data);
-          console.log('[GetBathroom] Session total leads:', leads.length);
-
-          /* Hide entire form area, show success */
-          if (form) form.style.display = 'none';
-          ['micro', 's1-trust', 'trust-micro', 'fc-title'].forEach(function (cls) {
-            var el = document.querySelector('.' + cls);
-            if (el) el.style.display = 'none';
-          });
-          if (okBox) okBox.classList.add('on');
-
-          /* Kill sticky CTA */
-          var s = document.getElementById('sticky');
-          if (s) s.style.display = 'none';
+        })
+        .catch(function () {
+          alert('Something went wrong. Please try again.');
+          btn2.disabled = false;
+          btn2.classList.remove('loading');
         });
-      }
+      });
 
-      /* ── Button wiring ──────────────────────────────────────────── */
-      on(btn1, 'click', revealStep2);
-      on(btn2, 'click', handleLeadSubmit);
-
-      /* Prevent browser default form submit */
-      on(form, 'submit', function (e) { e.preventDefault(); });
-
-      /* ── Smooth scroll ──────────────────────────────────────────── */
+      /* ── Smooth scroll for anchor links ─────────────────────────── */
       document.querySelectorAll('a[href^="#"]').forEach(function (a) {
-        on(a, 'click', function (e) {
+        a.addEventListener('click', function (e) {
           var t = document.querySelector(a.getAttribute('href'));
           if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
         });
@@ -1167,15 +1143,14 @@
       var heroEl   = document.getElementById('hero');
       var stickyEl = document.getElementById('sticky');
       if (heroEl && stickyEl && window.matchMedia('(max-width:599px)').matches) {
-        var obs = new IntersectionObserver(function (entries) {
+        new IntersectionObserver(function (entries) {
           var vis = entries[0].isIntersecting;
           stickyEl.style.display = vis ? 'none' : 'block';
           stickyEl.setAttribute('aria-hidden', String(vis));
-        }, { threshold: 0.05 });
-        obs.observe(heroEl);
+        }, { threshold: 0.05 }).observe(heroEl);
       }
 
-    }); // end DOMContentLoaded
+    });
   </script>
 </body>
 </html>
