@@ -1078,76 +1078,26 @@
       function sendToAPI(data) {
   const formData = new FormData();
 
-  formData.append("name", data.fullName);
+  formData.append("full_name", data.fullName);
   formData.append("phone", data.phone);
   formData.append("zip", data.zipCode);
   formData.append("project_type", data.projectType);
   formData.append("timeline", data.timeline);
   formData.append("page_url", data.pageUrl);
-  formData.append("source", "GetBathroom.com");
 
-  return fetch("https://usebasin.com/f/695e05eae9d3", {
+  return fetch("https://usebasin.com/f/c120462e1000", {
     method: "POST",
-    body: formData,
-    mode: "no-cors"
+    body: formData
   })
-  .then(() => {
-    console.log("[Basin] Lead sent (no-cors)");
-    return { success: true };
+  .then(res => {
+    console.log("[Basin] Status:", res.status);
+    return { success: res.ok };
   })
-  .catch((err) => {
-    console.error("[Basin] Submission error:", err);
+  .catch(err => {
+    console.error("[Basin] Error:", err);
     return { success: false };
   });
 }
-      /* ── handleLeadSubmit (step 2 final submit) ─────────────────── */
-      function handleLeadSubmit() {
-        if (!validateStep2()) {
-          var first = document.querySelector('#s2 .err');
-          if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          return;
-        }
-
-        var data = {
-          fullName:    fn  ? fn.value.trim()  : '',
-          zipCode:     fz  ? fz.value.trim()  : '',
-          phone:       fp  ? fp.value.trim()  : '',
-          projectType: fpt ? fpt.value        : '',
-          timeline:    ftl ? ftl.value        : '',
-          timestamp:   new Date().toISOString(),
-          pageUrl:     window.location.href,
-        };
-
-        /* Loading state on step-2 button */
-        if (btn2) { btn2.classList.add('loading'); btn2.disabled = true; }
-
-        console.log('[GetBathroom] Lead submitted:', JSON.stringify(data, null, 2));
-
-        sendToAPI(data).then(function (res) {
-
-          if (!res || res.success === false) {
-            alert("Something went wrong. Please try again.");
-            if (btn2) { btn2.classList.remove('loading'); btn2.disabled = false; }
-            return;
-          }
-
-          console.log("[Basin] Lead sent successfully");
-          leads.push(data);
-          console.log('[GetBathroom] Session total leads:', leads.length);
-
-          /* Hide entire form area, show success */
-          if (form) form.style.display = 'none';
-          ['micro', 's1-trust', 'trust-micro', 'fc-title'].forEach(function (cls) {
-            var el = document.querySelector('.' + cls);
-            if (el) el.style.display = 'none';
-          });
-          if (okBox) okBox.classList.add('on');
-
-          /* Kill sticky CTA */
-          var s = document.getElementById('sticky');
-          if (s) s.style.display = 'none';
-        });
-      }
 
       /* ── Button wiring ──────────────────────────────────────────── */
       on(btn1, 'click', revealStep2);
