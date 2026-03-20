@@ -367,43 +367,53 @@
     }
     #btn-sub.loading .btxt, .btn-sub.loading .btxt { display: none; }
     #btn-sub.loading .spin, .btn-sub.loading .spin { display: block; }
-    .loading-text { display: none; font-weight: 600; }
-    #btn-sub.loading .loading-text { display: inline; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+<form id="lead-form" novalidate>
 
-    .trust-micro {
-      text-align: center;
-      font-size: .73rem;
-      color: rgba(255,255,255,.5);
-      margin-top: 8px;
-      line-height: 1.5;
-    }
+  <!-- STEP 1 -->
+  <div class="search-bar" id="s1">
+    <input type="text" id="fz" name="zipCode"
+      placeholder="Enter your zip code"
+      maxlength="5" inputmode="numeric" />
+    <button type="button" id="btn-sub">
+      <span class="btxt">Check Availability →</span>
+      <span class="spin"></span>
+    </button>
+  </div>
 
-    /* success */
-    #ok {
-      display: none;
-      text-align: center;
-      padding: 28px 24px;
-      background: var(--white);
-      border-radius: var(--r-xl);
-      box-shadow: var(--sh-lg);
-      animation: up .4s cubic-bezier(.22,1,.36,1) both;
-    }
-    #ok.on { display: block; }
-    @keyframes up { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+  <div class="emsg" id="e-fz">Enter a valid zip</div>
 
-    .ok-icon {
-      width: 68px; height: 68px;
-      background: var(--green-light);
-      border: 2px solid var(--green-border);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2rem;
-      margin: 0 auto 16px;
-    }
-    #ok h3 { font-size: 1.2rem; font-weight: 800; color: var(--gray-900); margin-bottom: 8px; }
-    #ok p  { font-size: .92rem; color: var(--gray-500); line-height: 1.6; }
+  <!-- STEP 2 -->
+  <div id="s2">
 
+    <input type="text" id="fn" placeholder="Full Name" />
+    <div class="emsg" id="e-fn">Enter name</div>
+
+    <input type="tel" id="fp" placeholder="Phone Number" />
+    <div class="emsg" id="e-fp">Enter phone</div>
+
+    <select id="fpt">
+      <option value="">Project Type</option>
+      <option value="Shower Upgrade">Shower Upgrade</option>
+      <option value="Tub Replacement">Tub Replacement</option>
+      <option value="Full Remodel">Full Remodel</option>
+      <option value="Walk-In Tub">Walk-In Tub</option>
+    </select>
+
+    <select id="ftl">
+      <option value="">Timeline</option>
+      <option value="ASAP">ASAP</option>
+      <option value="1-3 Months">1–3 Months</option>
+      <option value="Planning">Planning</option>
+    </select>
+
+    <button type="button" class="btn-sub" id="btn-submit2">
+      <span class="btxt">Match Me →</span>
+      <span class="spin"></span>
+    </button>
+
+  </div>
+
+</form>
 
     /* ─────────────────── STEP 1 TRUST LINE ────────── */
     .s1-trust {
