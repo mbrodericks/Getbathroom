@@ -1075,7 +1075,7 @@
       }
 
       /* ── sendToAPI ── swap in real fetch() here ─────────────────── */
-      function sendToAPI(data) {
+   function sendToAPI(data) {
   const formData = new FormData();
 
   formData.append("name", data.fullName);
@@ -1086,17 +1086,16 @@
   formData.append("page_url", data.pageUrl);
   formData.append("source", "GetBathroom.com");
 
-  return fetch("https://usebasin.com/f/695e05eae9d3", {
+  return fetch("https://usebasin.com/f/c120462e1000", {
     method: "POST",
-    body: formData,
-    mode: "no-cors"
+    body: formData
   })
-  .then(() => {
-    console.log("[Basin] Lead sent (no-cors)");
-    return { success: true };
+  .then(res => {
+    console.log("[Basin] Status:", res.status);
+    return { success: res.ok };
   })
-  .catch((err) => {
-    console.error("[Basin] Submission error:", err);
+  .catch(err => {
+    console.error("[Basin] Error:", err);
     return { success: false };
   });
 }
