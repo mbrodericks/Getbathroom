@@ -125,6 +125,37 @@
     .btn-hdr:hover  { background: var(--blue-dark); transform: translateY(-1px); }
     .btn-hdr:active { transform: none; }
 
+    .call-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+    }
+
+    .call-text {
+      font-size: .65rem;
+      color: #6b7280;
+      font-weight: 600;
+    }
+
+    .btn-call {
+      font-family: var(--font);
+      font-size: .85rem;
+      font-weight: 700;
+      color: #fff;
+      background: #dc2626;
+      border-radius: var(--r-sm);
+      padding: 8px 16px;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(220,38,38,.35);
+      transition: transform var(--t), background var(--t);
+    }
+
+    .btn-call:hover {
+      background: #b91c1c;
+      transform: translateY(-1px);
+    }
+
     /* ─────────────────── HERO ──────────────────── */
     #hero {
       background: linear-gradient(150deg, #0c2550 0%, #1a4ea8 48%, #1b7bbf 100%);
@@ -752,7 +783,10 @@
   <header id="hdr">
     <div class="wrap hdr-in">
       <a class="logo" href="#"><span>Get</span>Bathroom</a>
-      <a class="btn-hdr" href="#form-card">Free Quote</a>
+      <div class="call-cta">
+        <span class="call-text">Need someone immediately?</span>
+        <a href="tel:+19566803843" class="btn-call">📞 Call Now</a>
+      </div>
     </div>
   </header>
 
