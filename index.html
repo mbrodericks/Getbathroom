@@ -1122,28 +1122,30 @@
 
       /* ── sendToAPI ── swap in real fetch() here ─────────────────── */
       function sendToAPI(data) {
-        return fetch("https://usebasin.com/f/695e05eae9d3", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
-          body: JSON.stringify({
-            name:         data.fullName,
-            phone:        data.phone,
-            zip:          data.zipCode,
-            project_type: data.projectType,
-            timeline:     data.timeline,
-            page_url:     data.pageUrl,
-            source:       "GetBathroom.com"
-          })
-        })
-        .then(function (res) { return res.json(); })
-        .catch(function (err) {
-          console.error("[Basin] Submission error:", err);
-          return { success: false };
-        });
-      }
+  const formData = new FormData();
+
+  formData.append("name", data.fullName);
+  formData.append("phone", data.phone);
+  formData.append("zip", data.zipCode);
+  formData.append("project_type", data.projectType);
+  formData.append("timeline", data.timeline);
+  formData.append("page_url", data.pageUrl);
+  formData.append("source", "GetBathroom.com");
+
+  return fetch("https://usebasin.com/f/695e05eae9d3", {
+    method: "POST",
+    body: formData,
+    mode: "no-cors"
+  })
+  .then(() => {
+    console.log("[Basin] Lead sent");
+    return { success: true };
+  })
+  .catch((err) => {
+    console.error("[Basin] Submission error:", err);
+    return { success: false };
+  });
+}
 
       /* ── handleLeadSubmit (step 2 final submit) ─────────────────── */
       function handleLeadSubmit() {
