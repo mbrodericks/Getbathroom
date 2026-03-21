@@ -548,37 +548,38 @@
 
     .card {
       position: relative;
-      border-radius: 16px;
+      border-radius: 20px;
       overflow: hidden;
-      min-height: 140px;
+      min-height: 160px;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
+      justify-content: center;
       padding: 14px;
-      color: #ffffff;
-      font-weight: 700;
-      font-size: .95rem;
       background-color: #1f2937;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       box-shadow: var(--sh-md);
       transition: transform .25s ease;
+      text-align: center;
     }
     .card:hover { transform: scale(1.03); }
 
-    .card::after {
+    .card::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,.65), rgba(0,0,0,.2));
+      background: rgba(0,0,0,0.45);
+      z-index: 1;
     }
 
-    .card-text { position: relative; z-index: 1; }
-
-    .shower  { background-image: url('/images/shower.jpg'); }
-    .tub     { background-image: url('/images/tub-new.jpg'); }
-    .vanity  { background-image: url('/images/vanity-modern.jpg'); }
-    .remodel { background-image: url('/images/full-remodel.jpg'); }
+    .card-text {
+      position: relative;
+      z-index: 2;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 18px;
+    }
 
     /* ─────────────────── HOW IT WORKS ───────────── */
     #hiw {
@@ -952,10 +953,10 @@
         <p class="sec-sub">From quick upgrades to full renovations — local contractors can make it happen.</p>
       </div>
       <div class="gal-grid" id="gal-grid">
-        <div class="card shower"><div class="card-text">Walk-In Shower</div></div>
-        <div class="card tub"><div class="card-text">Tub Replacement</div></div>
-        <div class="card vanity"><div class="card-text">Double Vanity</div></div>
-        <div class="card remodel"><div class="card-text">Full Remodel</div></div>
+        <div class="card" style="background-image:url('/images/shower.jpg')"><div class="card-text">Walk-In Shower</div></div>
+        <div class="card" style="background-image:url('/images/tub.jpg')"><div class="card-text">Tub Replacement</div></div>
+        <div class="card" style="background-image:url('/images/vanity.jpg')"><div class="card-text">Double Vanity</div></div>
+        <div class="card" style="background-image:url('/images/remodel.jpg')"><div class="card-text">Full Remodel</div></div>
       </div>
     </div>
   </section>
@@ -1069,10 +1070,10 @@
       var galGrid = document.getElementById('gal-grid');
       if (galGrid) {
         galGrid.innerHTML =
-          '<div class="card shower"><div class="card-text">Walk-In Shower</div></div>' +
-          '<div class="card tub"><div class="card-text">Tub Replacement</div></div>' +
-          '<div class="card vanity"><div class="card-text">Double Vanity</div></div>' +
-          '<div class="card remodel"><div class="card-text">Full Remodel</div></div>';
+          '<div class="card" style="background-image:url(\'/images/shower.jpg\')"><div class="card-text">Walk-In Shower</div></div>' +
+          '<div class="card" style="background-image:url(\'/images/tub.jpg\')"><div class="card-text">Tub Replacement</div></div>' +
+          '<div class="card" style="background-image:url(\'/images/vanity.jpg\')"><div class="card-text">Double Vanity</div></div>' +
+          '<div class="card" style="background-image:url(\'/images/remodel.jpg\')"><div class="card-text">Full Remodel</div></div>';
       }
 
       /* ── Element refs ───────────────────────────────────────────── */
