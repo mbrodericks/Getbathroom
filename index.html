@@ -1,1066 +1,723 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GetBathroom.com – Get Your Dream Bathroom!</title>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,700&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Get free bathroom remodel quotes from verified local contractors. Fast estimates, no obligation." />
+  <title>GetBathroom.com — Free Remodel Quotes in Minutes</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body {
-  min-height: 100%;
-  background: #7a9bb0;
-}
+    :root {
+      --gold:      #f5c518;
+      --gold-dark: #d4a017;
+      --orange:    #c0441a;
+      --orange2:   #e05a20;
+      --blue1:     #0a1a6b;
+      --blue2:     #1a3a9b;
+      --blue3:     #1e56c8;
+      --blue4:     #2575e8;
+      --navy:      #071250;
+      --white:     #ffffff;
+      --font:      'Segoe UI', system-ui, -apple-system, sans-serif;
+      --red-glow:  rgba(220,38,38,.12);
+    }
 
-body {
-  display: block;
-  font-family: 'Open Sans', sans-serif;
-  padding-bottom: 100px;
-}
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: #f0f4ff;
+      color: #1a1a2e;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      padding-bottom: 90px;
+    }
 
-/* ─── PHONE-WIDTH WRAPPER ─────────────────────── */
-.page {
-  width: 100%;
-  max-width: 520px;
-  margin: 0 auto;
-  position: relative;
-  overflow: hidden;
-}
+    /* ═══════════════════ HERO ═══════════════════ */
+    #hero {
+      background: linear-gradient(175deg, #061060 0%, #0d2080 30%, #1445b8 62%, #1d6dd4 85%, #2480e8 100%);
+      padding: 32px 20px 36px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,220,60,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-/* ─── FULL BLURRED BACKGROUND ─────────────────── */
-.bg {
-  position: absolute;
-  inset: 0;
-  background:
-    url('https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=900&q=80')
-    center / cover no-repeat;
-  filter: blur(7px) brightness(0.72) saturate(0.9);
-  transform: scale(1.06);
-  z-index: 0;
-}
+    .hero-site-name {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: .5px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 18px rgba(245,197,24,.5);
+    }
 
-.page > *:not(.bg) { position: relative; z-index: 1; }
+    .hero-headline {
+      font-size: clamp(2rem, 7vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+    .hero-headline .gold { color: var(--gold); text-shadow: 0 0 20px rgba(245,197,24,.45); }
+    .hero-headline .white { color: #fff; font-style: normal; }
 
-/* ─── LOGO BAR ────────────────────────────────── */
-.logo-bar {
-  padding: 16px 0 12px;
-  display: flex;
-  justify-content: center;
-}
 
-.logo-pill {
-  background: #fff;
-  border-radius: 50px;
-  padding: 7px 20px 7px 14px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-}
+    .gold-divider {
+      width: 90%;
+      max-width: 380px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 22px;
+      box-shadow: 0 0 10px rgba(245,197,24,.6);
+    }
 
-/* Faucet icon matching original orange+blue */
-.logo-faucet { display:flex; align-items:center; }
+    /* ── Service Icons ── */
+    .service-icons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: nowrap;
+      margin-bottom: 8px;
+      padding: 0 4px;
+    }
+    .svc-icon {
+      width: 80px;
+      height: 80px;
+      min-width: 0;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,.7);
+      background: rgba(255,255,255,.08);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8px 4px;
+      flex-direction: column;
+      flex-shrink: 1;
+    }
+    .svc-icon span {
+      font-size: .6rem;
+      font-weight: 800;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: .3px;
+      line-height: 1.25;
+    }
 
-.logo-wordmark {
-  display: flex;
-  align-items: baseline;
-  gap: 0;
-  line-height: 1;
-}
-.lw-get   { font-family:'Oswald',sans-serif; font-weight:600; font-size:1.5rem; color:#e84c0a; }
-.lw-bath  { font-family:'Oswald',sans-serif; font-weight:700; font-size:1.5rem; color:#0b3c70; }
-.lw-room  { font-family:'Oswald',sans-serif; font-weight:700; font-size:1.5rem; color:#0b3c70; }
-.lw-dot   { font-family:'Oswald',sans-serif; font-weight:400; font-size:1.1rem; color:#1a5aaa; margin-left:1px; }
+    /* ═══════════════════ TRUST BAR ═══════════════════ */
+    #trust-bar {
+      background: linear-gradient(90deg, #f5c518 0%, #ffd740 50%, #f5c518 100%);
+      padding: 14px 20px;
+      text-align: center;
+    }
+    #trust-bar p {
+      font-size: .88rem;
+      font-weight: 800;
+      color: #071250;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+    }
 
-/* ─── HEADLINE BAND ───────────────────────────── */
-.headline-band {
-  background: linear-gradient(175deg, #1864cc 0%, #1050b0 55%, #0b3c88 100%);
-  padding: 15px 16px 17px;
-  text-align: center;
-  border-top: 2.5px solid rgba(255,255,255,0.28);
-  border-bottom: 2.5px solid rgba(255,255,255,0.12);
-  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-}
+    /* ═══════════════════ ORANGE CTA BUTTON ═══════════════════ */
+    .orange-cta-wrap {
+      padding: 18px 20px 0;
+      background: linear-gradient(180deg, var(--blue3) 0%, var(--navy) 100%);
+    }
+    .btn-orange {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      padding: 18px 24px;
+      background: linear-gradient(135deg, #c03010 0%, #e06020 50%, #c83818 100%);
+      border-radius: 60px;
+      text-decoration: none;
+      box-shadow: 0 6px 24px rgba(192,48,16,.55), 0 0 0 3px rgba(245,197,24,.2);
+      transition: transform .15s ease, box-shadow .15s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-orange:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(192,48,16,.65), 0 0 0 3px rgba(245,197,24,.3); }
+    .btn-orange:active { transform: none; }
+    .btn-orange .icon { font-size: 1.5rem; }
+    .btn-orange .label { text-align: left; }
+    .btn-orange .call-text { display: block; font-size: 1.35rem; font-weight: 900; color: #fff; letter-spacing: 1px; line-height: 1.1; }
+    .btn-orange .call-num  { display: block; font-size: .88rem; font-weight: 700; color: var(--gold); letter-spacing: .5px; }
 
-.h1 {
-  font-family: 'Anton', sans-serif;
-  font-size: 2.05rem;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  line-height: 1.1;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
-}
+    /* ═══════════════════ FORM SECTION ═══════════════════ */
+    #form-section {
+      background: #e8edf8;
+      padding: 28px 16px 32px;
+    }
+    .form-headline {
+      font-size: clamp(1.5rem, 5vw, 2rem);
+      font-weight: 900;
+      color: #071250;
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+    .form-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 24px 20px 22px;
+      box-shadow: 0 6px 32px rgba(10,26,107,.14), 0 2px 8px rgba(10,26,107,.08);
+      max-width: 480px;
+      margin: 0 auto 24px;
+    }
+    .form-card h3 {
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: #0d2080;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .hidden { display: none !important; }
 
-.trust-bar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-  flex-wrap: wrap;
-  gap: 6px 0;
-}
+    /* Lead form fields */
+    .lead-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .lf { display: flex; flex-direction: column; }
+    .lf-input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 1rem;
+      font-family: var(--font);
+      border: 1.5px solid #d0d8f0;
+      border-radius: 10px;
+      background: #f7f9ff;
+      color: #1a1a2e;
+      outline: none;
+      transition: border-color .2s, background .2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .lf-input:focus { border-color: var(--blue3); background: #fff; }
+    .lf-input.err   { border-color: #c03010; background: #fff5f0; }
+    select.lf-input {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 38px;
+      cursor: pointer;
+    }
+    .lf .emsg { font-size: .73rem; color: #c03010; margin-top: 4px; display: none; }
+    .lf .emsg.on { display: block; }
 
-.t-item {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 0 8px;
-  font-size: clamp(0.65rem, 2.8vw, 0.78rem);
-  font-weight: 700;
-  color: #fff;
-  white-space: nowrap;
-}
-.t-item + .t-item { border-left: 1.5px solid rgba(255,255,255,0.35); }
+    /* Green submit button */
+    .btn-green {
+      width: 100%;
+      padding: 16px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(22,163,74,.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform .15s, box-shadow .15s;
+      letter-spacing: .3px;
+    }
+    .btn-green:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(22,163,74,.5); }
+    .btn-green:disabled { background: #ccc; box-shadow: none; cursor: not-allowed; }
 
-.t-check {
-  width: 16px; height: 16px;
-  background: #27ae60;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.58rem;
-  color: #fff;
-  font-weight: 900;
-  flex-shrink: 0;
-  box-shadow: 0 1px 5px rgba(0,0,0,0.3);
-}
+    .compliance {
+      font-size: .72rem;
+      color: #9ca3af;
+      text-align: center;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+    .ok-icon { font-size: 2.5rem; text-align: center; margin-bottom: 10px; }
+    #ok h3 { font-size: 1.2rem; font-weight: 800; color: #0d2080; text-align: center; margin-bottom: 8px; }
+    #ok p  { font-size: .9rem; color: #6b7280; text-align: center; }
+    .zip-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+    .zip-input {
+      width: 100%;
+      padding: 15px 16px;
+      font-size: 1.05rem;
+      border: 2px solid #c8d3f0;
+      border-radius: 12px;
+      outline: none;
+      font-family: var(--font);
+      color: #1a1a2e;
+      background: #f7f9ff;
+      transition: border-color .2s, background .2s;
+    }
+    .zip-input:focus { border-color: var(--blue3); background: #fff; }
+    .zip-input.err   { border-color: #c03010; background: #fff5f0; }
+    .emsg { font-size: .76rem; color: #c03010; margin-top: 4px; display: none; }
+    .emsg.on { display: block; }
 
-/* ─── TRANSFORM BANNER ────────────────────────── */
-.transform-banner {
-  background: linear-gradient(180deg, #1255be 0%, #0e4aaa 100%);
-  padding: 13px 18px 15px;
-  text-align: center;
-}
+    .btn-submit {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #b83010 0%, #d94e1a 50%, #c03010 100%);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 800;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      letter-spacing: .4px;
+      box-shadow: 0 6px 20px rgba(192,48,16,.45);
+      transition: transform .15s, box-shadow .15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 54px;
+    }
+    .btn-submit:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(192,48,16,.55); }
+    .btn-submit:disabled { background: #ccc; box-shadow: none; cursor: not-allowed; }
 
-.transform-line {
-  font-family: 'Oswald', sans-serif;
-  font-size: 1.65rem;
-  font-weight: 600;
-  font-style: italic;
-  color: #fff;
-  line-height: 1.15;
-  letter-spacing: 0.3px;
-}
-.transform-line .gold { color: #ffd600; font-style: italic; }
+    /* Checking... animated state */
+    .btn-check .checking-txt { display: none; font-weight: 700; }
+    .btn-check.loading .btxt         { display: none; }
+    .btn-check.loading .checking-txt { display: inline; }
+    .btn-check.loading .spin         { display: block; }
+    .dots::after {
+      content: '';
+      animation: dots 1.4s steps(4, end) infinite;
+    }
+    @keyframes dots {
+      0%   { content: ''; }
+      25%  { content: '.'; }
+      50%  { content: '..'; }
+      75%  { content: '...'; }
+    }
+    .form-note { font-size: .78rem; color: #9ca3af; text-align: center; margin-top: 10px; }
 
-.gold-underline {
-  height: 3px;
-  width: 56%;
-  margin: 8px auto 0;
-  background: linear-gradient(90deg, transparent, #ffd600 25%, #ffd600 75%, transparent);
-  border-radius: 2px;
-}
 
-/* ─── CIRCLES SECTION ─────────────────────────── */
-.circles-section {
-  background: linear-gradient(180deg, #0e4aaa 0%, #1255be 50%, #0e4aaa 100%);
-  padding: 20px 8px 24px;
-}
+    .spin {
+      display: none; width: 18px; height: 18px;
+      border: 2.5px solid rgba(255,255,255,.35); border-top-color: #fff;
+      border-radius: 50%; animation: spin .7s linear infinite; flex-shrink: 0;
+    }
+    .loading .btxt { display: none; }
+    .loading .spin { display: block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-.circles-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  width: 100%;
-}
 
-.c-wrap {
-  /* Each circle = exactly 1/4 of container minus gaps */
-  flex: 0 0 calc(25% - 5px);
-  width: calc(25% - 5px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-.c-ring {
-  /* Force perfect square via width=100% of c-wrap, height matches via padding trick */
-  width: 100%;
-  padding-bottom: 100%; /* makes height = width → perfect circle */
-  height: 0;
-  border-radius: 50%;
-  border: 3px solid rgba(255,255,255,0.92);
-  box-shadow:
-    0 0 0 4px rgba(255,255,255,0.15),
-    0 6px 20px rgba(0,0,0,0.55);
-  overflow: hidden;
-  position: relative;
-  background: #1255be;
-}
+    /* ═══════════════════ TRUST BADGES ═══════════════════ */
+    #badges {
+      background: #e8edf8;
+      padding: 0 16px 24px;
+    }
+    .badges-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 20px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: .85rem;
+      font-weight: 700;
+      color: #0d2080;
+    }
+    .badge .bi { font-size: 1.25rem; }
 
-.c-ring img {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-}
 
-/* Label overlay at bottom inside circle */
-.c-label {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  background: linear-gradient(0deg, rgba(8,30,80,0.90) 0%, rgba(8,30,80,0.0) 100%);
-  padding: 16px 3px 7px;
-  text-align: center;
-  z-index: 2;
-}
-.c-label span {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.62rem;
-  font-weight: 700;
-  color: #fff;
-  text-shadow: 0 1px 5px rgba(0,0,0,0.8);
-  letter-spacing: 0.1px;
-  line-height: 1.2;
-  display: block;
-}
 
-/* ─── VALUE STRIP ─────────────────────────────── */
-.value-strip {
-  /* Matches the golden yellow bar in the image */
-  background: linear-gradient(90deg, #b89400 0%, #e8c000 20%, #ffd700 50%, #e8c000 80%, #b89400 100%);
-  padding: 11px 16px;
-  text-align: center;
-  box-shadow: 0 -1px 0 rgba(255,255,255,0.2), 0 4px 12px rgba(0,0,0,0.3);
-}
-.value-strip p {
-  font-family: 'Oswald', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: #1a1000;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
+    /* ═══════════════════ STICKY CTA ═══════════════════ */
+    #sticky {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+      width: calc(100% - 32px);
+      max-width: 480px;
+    }
+    .sticky-pill {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, #b02c0e 0%, #dc5520 50%, #b83410 100%);
+      border-radius: 60px;
+      text-decoration: none;
+      box-shadow: 0 6px 28px rgba(176,44,14,.6), 0 0 0 3px rgba(245,197,24,.25);
+      animation: pulse-glow 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 6px 28px rgba(176,44,14,.6), 0 0 0 3px rgba(245,197,24,.25); }
+      50%       { box-shadow: 0 8px 36px rgba(176,44,14,.8), 0 0 0 5px rgba(245,197,24,.4); }
+    }
+    .sticky-pill .icon { font-size: 1.4rem; }
+    .sticky-pill .txt { text-align: left; }
+    .sticky-pill .call-text { display: block; font-size: 1.2rem; font-weight: 900; color: #fff; letter-spacing: .8px; line-height: 1.1; }
+    .sticky-pill .call-num  { display: block; font-size: .82rem; font-weight: 700; color: var(--gold); }
 
-/* ─── FORM SECTION ────────────────────────────── */
-.form-section {
-  background: linear-gradient(180deg, #0c3888 0%, #1255be 40%, #0c3888 100%);
-  padding: 24px 16px 36px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-}
+    /* ═══════════════════ FOOTER ═══════════════════ */
+    footer {
+      background: #071250;
+      padding: 28px 20px;
+      text-align: center;
+    }
+    .ft-logo { font-size: 1rem; font-weight: 800; color: var(--gold); margin-bottom: 14px; }
+    .ft-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px 20px; margin-bottom: 16px; }
+    .ft-links a { font-size: .78rem; color: rgba(255,255,255,.55); text-decoration: none; }
+    .ft-links a:hover { color: #fff; }
+    .ft-disc { font-size: .7rem; color: rgba(255,255,255,.35); line-height: 1.6; max-width: 480px; margin: 0 auto; }
 
-.form-heading {
-  font-family: 'Oswald', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 700;
-  font-style: italic;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  text-align: center;
-  text-shadow: 0 1px 5px rgba(0,0,0,0.4);
-  margin-bottom: 16px;
-}
+    @media (min-width: 440px) {
+      .svc-icon { width: 88px; height: 88px; }
+      .svc-icon span { font-size: .66rem; }
+    }
+    @media (max-width: 360px) {
+      .svc-icon { width: 68px; height: 68px; }
+      .svc-icon span { font-size: .52rem; }
+      .frow { grid-template-columns: 1fr; }
+    }
 
-/* Step indicator */
-.step-indicator {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 18px;
-}
-.step-dot {
-  width: 28px; height: 28px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Oswald', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 700;
-  border: 2px solid rgba(255,255,255,0.4);
-  color: rgba(255,255,255,0.5);
-  transition: all 0.3s;
-}
-.step-dot.active {
-  background: #ffd700;
-  border-color: #ffd700;
-  color: #1a1000;
-  box-shadow: 0 0 12px rgba(255,215,0,0.5);
-}
-.step-dot.done {
-  background: #27ae60;
-  border-color: #27ae60;
-  color: #fff;
-}
-.step-line {
-  width: 40px; height: 2px;
-  background: rgba(255,255,255,0.25);
-  border-radius: 2px;
-}
-.step-line.done { background: #27ae60; }
 
-/* Form card */
-.form-card {
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-  background: linear-gradient(160deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%);
-  border: 1.5px solid rgba(255,255,255,0.18);
-  border-radius: 16px;
-  padding: 22px 18px 24px;
-  box-shadow:
-    0 8px 32px rgba(0,0,0,0.35),
-    inset 0 1px 0 rgba(255,255,255,0.12);
-}
-
-/* Step blocks */
-.form-step {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.form-step.hidden {
-  display: none;
-}
-
-/* Step label */
-.step-label {
-  font-family: 'Oswald', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: rgba(255,255,255,0.65);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-align: center;
-  margin-bottom: 2px;
-}
-
-/* ZIP hint */
-.zip-hint {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.55);
-  text-align: center;
-  margin-top: -4px;
-}
-
-/* Back link */
-.back-link {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.55);
-  text-align: center;
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  margin-top: -2px;
-}
-.back-link:hover { color: rgba(255,255,255,0.85); }
-
-/* Stored zip display */
-.zip-confirmed {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  background: rgba(39,174,96,0.18);
-  border: 1px solid rgba(39,174,96,0.4);
-  border-radius: 8px;
-  padding: 9px 14px;
-}
-.zip-confirmed .zc-check {
-  width: 20px; height: 20px;
-  background: #27ae60;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.65rem;
-  color: #fff;
-  font-weight: 900;
-  flex-shrink: 0;
-}
-.zip-confirmed .zc-text {
-  font-family: 'Oswald', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #a8f0c0;
-  letter-spacing: 0.5px;
-}
-
-.f-input {
-  width: 100%;
-  padding: 14px 15px;
-  background: #fff;
-  border: 2px solid rgba(200,220,255,0.4);
-  border-radius: 8px;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 1rem;
-  color: #333;
-  outline: none;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-.f-input::placeholder { color: #888; font-weight: 400; }
-.f-input:focus {
-  border-color: #ffd700;
-  box-shadow: 0 0 0 3px rgba(255,215,0,0.2), inset 0 1px 3px rgba(0,0,0,0.1);
-}
-
-/* Select dropdown styling */
-select.f-input {
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23555' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  padding-right: 38px;
-  cursor: pointer;
-  color: #333;
-}
-select.f-input option[value=""] { color: #888; }
-select.f-input:invalid { color: #888; }
-
-/* Check availability btn (step 1) */
-.avail-btn {
-  width: 100%;
-  padding: 15px 18px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  background: linear-gradient(180deg, #ffd700 0%, #e8b800 100%);
-  font-family: 'Oswald', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #1a1000;
-  text-shadow: none;
-  box-shadow:
-    0 4px 0 #a07800,
-    0 6px 16px rgba(0,0,0,0.35),
-    inset 0 1px 0 rgba(255,255,255,0.4);
-  transition: transform 0.1s, box-shadow 0.1s;
-}
-.avail-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 0 #a07800, 0 10px 20px rgba(0,0,0,0.4);
-}
-.avail-btn:active {
-  transform: translateY(3px);
-  box-shadow: 0 1px 0 #a07800, 0 3px 8px rgba(0,0,0,0.3);
-}
-
-/* Get quote btn (step 2) */
-.quote-btn {
-  width: 100%;
-  padding: 15px 18px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  background: linear-gradient(180deg, #d43010 0%, #b82208 60%, #a01800 100%);
-  font-family: 'Oswald', sans-serif;
-  font-size: 1.15rem;
-  font-weight: 700;
-  font-style: italic;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #fff;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
-  box-shadow:
-    0 5px 0 #6b0a00,
-    0 8px 18px rgba(0,0,0,0.45),
-    inset 0 1px 0 rgba(255,160,120,0.25);
-  transition: transform 0.1s, box-shadow 0.1s;
-}
-.quote-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 7px 0 #6b0a00, 0 12px 22px rgba(0,0,0,0.5);
-}
-.quote-btn:active {
-  transform: translateY(4px);
-  box-shadow: 0 1px 0 #6b0a00, 0 4px 8px rgba(0,0,0,0.3);
-}
-
-/* Fade-in animation for step 2 */
-@keyframes fadeSlideIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.form-step.visible {
-  animation: fadeSlideIn 0.35s ease forwards;
-}
-
-/* ─── THANK YOU MODAL ────────────────────────── */
-.modal-overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.70);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 10000;
-  padding: 16px;
-  pointer-events: auto;
-}
-
-.modal-card {
-  width: 90%;
-  max-width: 380px;
-  background: #fff;
-  border-radius: 16px;
-  padding: 30px 24px 26px;
-  text-align: center;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.5);
-  animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  position: relative;
-  z-index: 10001;
-  pointer-events: auto;
-}
-
-@keyframes modalPop {
-  from { opacity: 0; transform: scale(0.85) translateY(20px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.modal-icon {
-  width: 60px; height: 60px;
-  background: linear-gradient(135deg, #27ae60, #1e8449);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 16px;
-  box-shadow: 0 4px 16px rgba(39,174,96,0.4);
-  font-size: 1.6rem;
-}
-
-.modal-card h2 {
-  font-family: 'Oswald', sans-serif;
-  font-size: 1.7rem;
-  font-weight: 700;
-  color: #0b3c70;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.modal-card .modal-sub {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.95rem;
-  color: #444;
-  margin: 5px 0;
-  line-height: 1.5;
-}
-
-.modal-divider {
-  width: 50px; height: 3px;
-  background: linear-gradient(90deg, #ffd700, #e8b800);
-  border-radius: 2px;
-  margin: 14px auto;
-}
-
-.modal-call-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 16px;
-  padding: 15px 20px;
-  background: linear-gradient(180deg, #d43010 0%, #b82208 60%, #a01800 100%);
-  color: #fff;
-  text-decoration: none;
-  font-family: 'Oswald', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  border-radius: 8px;
-  box-shadow: 0 5px 0 #6b0a00, 0 8px 20px rgba(0,0,0,0.35);
-  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
-  transition: transform 0.1s, box-shadow 0.1s;
-  position: relative;
-  z-index: 10001;
-  pointer-events: auto;
-  cursor: pointer;
-  -webkit-tap-highlight-color: rgba(255,255,255,0.2);
-}
-.modal-call-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 7px 0 #6b0a00, 0 12px 24px rgba(0,0,0,0.4);
-}
-.modal-call-btn:active {
-  transform: translateY(3px);
-  box-shadow: 0 2px 0 #6b0a00, 0 4px 8px rgba(0,0,0,0.3);
-}
-
-.modal-close {
-  position: absolute;
-  top: 12px; right: 14px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.3rem;
-  color: #aaa;
-  line-height: 1;
-  padding: 4px;
-  transition: color 0.2s;
-}
-.modal-close:hover { color: #555; }
-
-/* ─── STICKY CALL NOW ─────────────────────────── */
-.sticky-wrap {
-  position: fixed;
-  bottom: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-  width: min(96vw, 480px);
-  padding: 0 6px;
-}
-
-.call-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  padding: 12px 16px;
-  background: linear-gradient(175deg, #f87220 0%, #e04800 45%, #bf1f00 100%);
-  border-radius: 60px;
-  text-decoration: none;
-  border: 2px solid rgba(255,220,150,0.30);
-  box-shadow:
-    0 0 0 4px rgba(210,55,0,0.30),
-    0 12px 36px rgba(180,35,0,0.70),
-    0 4px 12px rgba(0,0,0,0.40),
-    inset 0 2px 0 rgba(255,200,120,0.28),
-    inset 0 -2px 0 rgba(0,0,0,0.22);
-  animation: ctaGlow 2.4s ease-in-out infinite;
-  transition: transform 0.12s;
-  overflow: hidden;
-}
-.call-btn:hover  { transform: translateY(-2px); }
-.call-btn:active { transform: scale(0.97); }
-
-/* Phone icon circle */
-.ph-circle {
-  width: 38px; height: 38px;
-  min-width: 38px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.18);
-  border: 2px solid rgba(255,255,255,0.35);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-}
-.ph-svg { width: 19px; height: 19px; fill: #fff; }
-
-/* Text block */
-.call-text-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1px;
-  flex: 1;
-  min-width: 0;
-}
-
-.call-main {
-  font-family: 'Oswald', sans-serif;
-  font-size: clamp(0.6rem, 3.2vw, 0.88rem);
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  text-shadow: 0 1px 5px rgba(0,0,0,0.5);
-  line-height: 1.2;
-  text-align: center;
-  white-space: normal;
-  word-break: break-word;
-  width: 100%;
-}
-
-.call-number {
-  font-family: 'Anton', sans-serif;
-  font-size: clamp(1.1rem, 5vw, 1.45rem);
-  color: #ffe8b0;
-  letter-spacing: 2px;
-  text-shadow: 0 1px 6px rgba(0,0,0,0.45);
-  text-align: center;
-  line-height: 1;
-  white-space: nowrap;
-}
-
-@keyframes ctaGlow {
-  0%, 100% {
-    box-shadow:
-      0 0 0 4px rgba(210,55,0,0.30),
-      0 12px 36px rgba(180,35,0,0.70),
-      0 4px 12px rgba(0,0,0,0.40),
-      inset 0 2px 0 rgba(255,200,120,0.28);
-  }
-  50% {
-    box-shadow:
-      0 0 0 8px rgba(210,55,0,0.15),
-      0 16px 48px rgba(180,35,0,0.85),
-      0 6px 18px rgba(0,0,0,0.45),
-      inset 0 2px 0 rgba(255,200,120,0.28);
-  }
-}
-
-/* ── RESPONSIVE FINE-TUNING ── */
-@media (max-width: 360px) {
-  .h1 { font-size: 1.75rem; }
-  .transform-line { font-size: 1.4rem; }
-  .t-item { font-size: 0.68rem; padding: 0 6px; }
-  .value-strip p { font-size: 0.76rem; letter-spacing: 0.8px; }
-  .call-main { font-size: 0.58rem; letter-spacing: 0.3px; }
-  .call-number { font-size: 1rem; letter-spacing: 1.5px; }
-  .ph-circle { width: 32px; height: 32px; min-width: 32px; }
-  .ph-svg { width: 16px; height: 16px; }
-}
-</style>
+    @media (min-width: 440px) {
+      .svc-icon { width: 88px; height: 88px; }
+      .svc-icon span { font-size: .66rem; }
+    }
+    @media (max-width: 360px) {
+      .svc-icon { width: 68px; height: 68px; }
+      .svc-icon span { font-size: .52rem; }
+      .frow { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="page">
-  <div class="bg"></div>
+  <!-- ══ HERO ══════════════════════════════════════════ -->
+  <section id="hero">
+    <p class="hero-site-name">GetBathroom.com</p>
 
-  <!-- ═══ LOGO ═══ -->
-  <div class="logo-bar">
-    <div class="logo-pill">
-      <!-- SVG faucet icon matching original -->
-      <svg width="36" height="36" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M6 26 C6 26 10 22 18 22 L28 22" stroke="#1565c0" stroke-width="5" stroke-linecap="round"/>
-        <rect x="26" y="14" width="7" height="20" rx="3.5" fill="#1565c0"/>
-        <rect x="25" y="10" width="9" height="7" rx="2.5" fill="#e84c0a"/>
-        <line x1="22" y1="10" x2="22" y2="15" stroke="#e84c0a" stroke-width="3" stroke-linecap="round"/>
-        <path d="M30 34 Q30 42 24 44" stroke="#1565c0" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-        <circle cx="23.5" cy="45" r="2" fill="#1565c0" opacity="0.45"/>
-      </svg>
-      <div class="logo-wordmark">
-        <span class="lw-get">Get</span><span class="lw-bath">Bath</span><span class="lw-room">room</span><span class="lw-dot">.com</span>
-      </div>
+    <h1 class="hero-headline">
+      <span class="gold">Transform Your<br>Bathroom</span>
+      <span class="white"> Today!</span>
+    </h1>
+
+    <div class="gold-divider"></div>
+
+    <div class="service-icons">
+      <div class="svc-icon"><span>NEW<br>SHOWERS</span></div>
+      <div class="svc-icon"><span>MODERN<br>VANITIES</span></div>
+      <div class="svc-icon"><span>BEAUTIFUL<br>TUBS</span></div>
+      <div class="svc-icon"><span>WALK-IN<br>TUBS</span></div>
     </div>
+  </section>
+
+  <!-- ══ TRUST BAR ══════════════════════════════════════ -->
+  <div id="trust-bar">
+    <p>FREE QUOTES &bull; LOCAL CONTRACTORS &bull; QUICK ESTIMATES</p>
   </div>
 
-  <!-- ═══ HEADLINE BAND ═══ -->
-  <div class="headline-band">
-    <h1 class="h1">GET YOUR DREAM BATHROOM!</h1>
-    <div class="trust-bar">
-      <div class="t-item"><div class="t-check">✓</div><span>Affordable Pricing</span></div>
-      <div class="t-item"><div class="t-check">✓</div><span>Expert Remodeling</span></div>
-      <div class="t-item"><div class="t-check">✓</div><span>Fast Installation</span></div>
-    </div>
-  </div>
-
-  <!-- ═══ TRANSFORM BANNER ═══ -->
-  <div class="transform-banner">
-    <p class="transform-line">Transform Your Bathroom <span class="gold">Today!</span></p>
-    <div class="gold-underline"></div>
-  </div>
-
-  <!-- ═══ SERVICE CIRCLES ═══ -->
-  <div class="circles-section">
-    <div class="circles-row">
-
-      <div class="c-wrap">
-        <div class="c-ring">
-          <img src="https://images.unsplash.com/photo-1620626011761-996317702519?w=400&q=80" alt="">
-          <div class="c-label"><span>New Showers</span></div>
-        </div>
-      </div>
-
-      <div class="c-wrap">
-        <div class="c-ring">
-          <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=80" alt="">
-          <div class="c-label"><span>Modern Vanities</span></div>
-        </div>
-      </div>
-
-      <div class="c-wrap">
-        <div class="c-ring">
-          <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=400&q=80" alt="">
-          <div class="c-label"><span>Beautiful Tubs</span></div>
-        </div>
-      </div>
-
-      <div class="c-wrap">
-        <div class="c-ring">
-          <img src="https://images.unsplash.com/photo-1564540586988-aa4e53c3d799?w=400&q=80" alt="">
-          <div class="c-label"><span>Walk-In Tubs</span></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ═══ VALUE STRIP ═══ -->
-  <div class="value-strip">
-    <p>FREE QUOTES &nbsp;•&nbsp; LOCAL CONTRACTORS &nbsp;•&nbsp; QUICK ESTIMATES</p>
-  </div>
-
-  <!-- ═══ LEAD FORM ═══ -->
-  <div class="form-section">
-    <p class="form-heading">GET A FREE BATHROOM QUOTE!</p>
-
-    <!-- Step indicator -->
-    <div class="step-indicator">
-      <div class="step-dot active" id="dot1">1</div>
-      <div class="step-line" id="line1"></div>
-      <div class="step-dot" id="dot2">2</div>
-    </div>
-
-    <!-- Form card -->
-    <div class="form-card">
-
-      <!-- STEP 1: ZIP -->
-      <div class="form-step visible" id="step1">
-        <p class="step-label">Step 1 of 2 — Enter Your ZIP Code</p>
-        <input
-          class="f-input"
-          id="zipInput"
-          type="text"
-          inputmode="numeric"
-          placeholder="ZIP Code"
-          autocomplete="postal-code"
-          maxlength="10">
-        <p class="zip-hint">We'll check contractor availability in your area</p>
-        <button class="avail-btn" onclick="goToStep2()">🔍 CHECK AVAILABILITY</button>
-      </div>
-
-      <!-- STEP 2: Name + Phone -->
-      <div class="form-step hidden" id="step2">
-        <p class="step-label">Step 2 of 2 — Your Contact Info</p>
-        <!-- ZIP confirmed badge -->
-        <div class="zip-confirmed">
-          <div class="zc-check">✓</div>
-          <span class="zc-text" id="zipConfirmed">ZIP: —</span>
-        </div>
-        <input
-          class="f-input"
-          id="nameInput"
-          type="text"
-          placeholder="Full Name"
-          autocomplete="name">
-        <input
-          class="f-input"
-          id="phoneInput"
-          type="tel"
-          placeholder="Phone Number"
-          autocomplete="tel">
-        <select class="f-input" id="jobType" required>
-          <option value="" disabled selected>Select Project Type</option>
-          <option value="tub">Bathtub Installation</option>
-          <option value="shower">Shower Remodel</option>
-          <option value="walk-in-tub">Walk-In Tub</option>
-          <option value="full-remodel">Full Bathroom Remodel</option>
-        </select>
-        <select class="f-input" id="timeframe" required>
-          <option value="" disabled selected>Project Timeframe</option>
-          <option value="0-3">0–3 Months</option>
-          <option value="3-6">3–6 Months</option>
-          <option value="6+">6+ Months</option>
-          <option value="researching">Just Researching</option>
-        </select>
-        <button class="quote-btn" id="quoteBtn" onclick="submitForm()">GET MY FREE QUOTE</button>
-        <span class="back-link" onclick="goBack()">← Change ZIP code</span>
-      </div>
-
-    </div>
-  </div>
-
-</div><!-- /page -->
-
-<!-- ═══ STICKY CALL NOW ═══ -->
-<div class="sticky-wrap">
-  <a class="call-btn" href="tel:+19566803843" onclick="forceCall(event)">
-    <div class="ph-circle">
-      <svg class="ph-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.32.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.29 21 3 13.71 3 5c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.27.2 2.48.57 3.62a1 1 0 0 1-.25 1.01L6.6 10.8z"/>
-      </svg>
-    </div>
-    <div class="call-text-block">
-      <span class="call-main">CALL NOW &bull; SPEAK TO A LOCAL EXPERT TODAY!</span>
-      <span class="call-number">956-680-3843</span>
-    </div>
-  </a>
-</div>
-
-<!-- ═══ THANK YOU MODAL ═══ -->
-<div id="thankYouModal" class="modal-overlay">
-  <div class="modal-card">
-    <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
-    <div class="modal-icon">✓</div>
-    <h2>Thank You!</h2>
-    <div class="modal-divider"></div>
-    <p class="modal-sub">A local contractor will contact you shortly.</p>
-    <p class="modal-sub">For immediate assistance, call us now:</p>
-    <a href="tel:+19566803843" class="modal-call-btn" onclick="forceCall(event)">
-      📞 &nbsp;CALL NOW — 956-680-3843
+  <!-- ══ ORANGE CTA ══════════════════════════════════════ -->
+  <div class="orange-cta-wrap" style="padding:20px 20px 28px;">
+    <a href="tel:+18664382284" class="btn-orange">
+      <span class="icon">📞</span>
+      <span class="label">
+        <span class="call-text">CALL NOW</span>
+        <span class="call-num">413-GET-BATH</span>
+      </span>
     </a>
   </div>
-</div>
 
-<script>
-let storedZip = '';
+  <!-- ══ FORM SECTION ════════════════════════════════════ -->
+  <section id="form-section">
+    <h2 class="form-headline">Get a Free Bathroom Quote!</h2>
 
-/* ── FORCE DIALER OPEN (works in WebViews and mobile browsers) ── */
-function forceCall(e) {
-  if (e) e.preventDefault();
-  window.location.href = 'tel:+19566803843';
-}
+    <!-- STEP 1: ZIP entry -->
+    <div class="form-card" id="step1-card">
+      <h3>Check Availability in Your Area</h3>
+      <div class="zip-stack">
+        <input type="text" id="fz" class="zip-input" placeholder="Enter ZIP"
+          inputmode="numeric" maxlength="5" autocomplete="postal-code" />
+        <button type="button" id="btn-sub" class="btn-submit btn-check">
+          <span class="btxt">Check Availability →</span>
+          <span class="checking-txt">Checking<span class="dots"></span></span>
+          <span class="spin"></span>
+        </button>
+      </div>
+      <div class="emsg" id="e-fz">⚠ Enter a valid 5-digit ZIP.</div>
+      <p class="form-note">Free &bull; No obligation &bull; Takes 30 seconds</p>
+    </div>
 
-/* ── STEP 1 → 2 ── */
-function goToStep2() {
-  const zipEl = document.getElementById('zipInput');
-  if (!zipEl) return;
-  const zip = zipEl.value.trim();
-  if (!zip) {
-    zipEl.style.borderColor = '#ff4444';
-    zipEl.focus();
-    setTimeout(() => zipEl.style.borderColor = '', 1200);
-    return;
-  }
-  storedZip = zip;
+    <!-- STEP 2: Full lead form (hidden until ZIP submitted) -->
+    <div class="form-card hidden" id="s2">
+      <h3>Great News — We Found Contractors in Your Area</h3>
+      <form id="lead-form" novalidate>
+        <div class="lead-fields">
 
-  const zipConfirmed = document.getElementById('zipConfirmed');
-  if (zipConfirmed) zipConfirmed.textContent = 'ZIP: ' + zip + ' ✓ Contractors Available!';
+          <div class="lf">
+            <input type="text" id="fn" name="fullName" placeholder="Full Name"
+              autocomplete="name" class="lf-input" />
+            <div class="emsg" id="e-fn">⚠ Please enter your full name.</div>
+          </div>
 
-  const dot1  = document.getElementById('dot1');
-  const dot2  = document.getElementById('dot2');
-  const line1 = document.getElementById('line1');
-  if (dot1)  { dot1.classList.remove('active'); dot1.classList.add('done'); dot1.textContent = '✓'; }
-  if (line1) { line1.classList.add('done'); }
-  if (dot2)  { dot2.classList.add('active'); }
+          <div class="lf">
+            <input type="tel" id="fp" name="phone" placeholder="Phone Number"
+              inputmode="tel" class="lf-input" />
+            <div class="emsg" id="e-fp">⚠ Enter a valid phone number.</div>
+          </div>
 
-  const s1 = document.getElementById('step1');
-  const s2 = document.getElementById('step2');
-  if (s1) s1.className = 'form-step hidden';
-  if (s2) s2.className = 'form-step visible';
+          <div class="lf">
+            <input type="email" id="fe" name="email" placeholder="Email Address"
+              autocomplete="email" class="lf-input" />
+            <div class="emsg" id="e-fe">⚠ Enter a valid email address.</div>
+          </div>
 
-  setTimeout(() => {
-    const nameEl = document.getElementById('nameInput');
-    if (nameEl) nameEl.focus();
-  }, 50);
-}
+          <div class="lf">
+            <input type="text" id="fz2" name="zipConfirm" placeholder="ZIP Code"
+              inputmode="numeric" maxlength="5" class="lf-input" readonly />
+          </div>
 
-/* ── BACK TO STEP 1 ── */
-function goBack() {
-  storedZip = '';
-  const dot1  = document.getElementById('dot1');
-  const dot2  = document.getElementById('dot2');
-  const line1 = document.getElementById('line1');
-  if (dot1)  { dot1.classList.remove('done'); dot1.classList.add('active'); dot1.textContent = '1'; }
-  if (line1) { line1.classList.remove('done'); }
-  if (dot2)  { dot2.classList.remove('active'); }
+          <div class="lf">
+            <select id="fpt" name="projectType" class="lf-input">
+              <option value="">Select Project Type</option>
+              <option value="Bathroom Remodel">Bathroom Remodel</option>
+              <option value="Shower Upgrade">Shower Upgrade</option>
+              <option value="Tub Replacement">Tub Replacement</option>
+              <option value="Walk-in Tub">Walk-in Tub</option>
+              <option value="Full Renovation">Full Renovation</option>
+            </select>
+            <div class="emsg" id="e-fpt">⚠ Please select a project type.</div>
+          </div>
 
-  const s1 = document.getElementById('step1');
-  const s2 = document.getElementById('step2');
-  if (s2) s2.className = 'form-step hidden';
-  if (s1) s1.className = 'form-step visible';
+          <div class="lf">
+            <select id="ftl" name="timeline" class="lf-input">
+              <option value="">Select Timeline</option>
+              <option value="ASAP">ASAP</option>
+              <option value="1-3 Months">1-3 Months</option>
+              <option value="6+ Months">6+ Months</option>
+              <option value="Just Exploring">Just Exploring</option>
+            </select>
+            <div class="emsg" id="e-ftl">⚠ Please select a timeline.</div>
+          </div>
 
-  setTimeout(() => {
-    const zipEl = document.getElementById('zipInput');
-    if (zipEl) zipEl.focus();
-  }, 50);
-}
+        </div>
 
-/* ── SHOW / HIDE MODAL ── */
-function showModal() {
-  const modal = document.getElementById('thankYouModal');
-  if (modal) modal.style.display = 'flex';
-  /* Delayed call trigger after modal appears */
-  setTimeout(() => { window.location.href = 'tel:+19566803843'; }, 2500);
-}
-function closeModal() {
-  const modal = document.getElementById('thankYouModal');
-  if (modal) modal.style.display = 'none';
-}
+        <button type="button" id="btn-submit2" class="btn-green">
+          <span class="btxt">Get My Free Quote</span>
+          <span class="spin"></span>
+        </button>
 
-/* ── HIGHLIGHT INVALID FIELD ── */
-function flagField(id) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.style.borderColor = '#ff4444';
-  el.focus();
-  setTimeout(() => el.style.borderColor = '', 1500);
-}
+        <p class="compliance">
+          By clicking "Get My Free Quote", you agree to be contacted by phone, SMS, and email
+          from licensed contractors. Consent is not a condition of purchase.
+        </p>
+      </form>
+    </div>
 
-/* ── SUBMIT ── */
-function submitForm() {
-  const nameEl      = document.getElementById('nameInput');
-  const phoneEl     = document.getElementById('phoneInput');
-  const jobTypeEl   = document.getElementById('jobType');
-  const timeframeEl = document.getElementById('timeframe');
+    <!-- SUCCESS -->
+    <div class="form-card hidden" id="ok">
+      <div class="ok-icon">✅</div>
+      <h3>You're All Set!</h3>
+      <p>Thank you! A local contractor will contact you shortly with your free, no-obligation quote.</p>
+    </div>
 
-  const name      = nameEl      ? nameEl.value.trim()  : '';
-  const phone     = phoneEl     ? phoneEl.value.trim() : '';
-  const zip       = storedZip;
-  const jobType   = jobTypeEl   ? jobTypeEl.value      : '';
-  const timeframe = timeframeEl ? timeframeEl.value    : '';
+  </section>
 
-  if (!name)      { flagField('nameInput');  alert('Please enter your full name.');       return; }
-  if (!phone)     { flagField('phoneInput'); alert('Please enter your phone number.');    return; }
-  if (!jobType)   { flagField('jobType');    alert('Please select a project type.');      return; }
-  if (!timeframe) { flagField('timeframe');  alert('Please select a project timeframe.'); return; }
-  if (!zip)       { alert('Please complete Step 1 first.');                               return; }
+  <!-- ══ TRUST BADGES ════════════════════════════════════ -->
+  <section id="badges">
+    <div class="badges-grid">
+      <div class="badge"><span class="bi">✅</span> Licensed Contractors</div>
+      <div class="badge"><span class="bi">🛡️</span> No Obligation</div>
+      <div class="badge"><span class="bi">⚡</span> Fast Response</div>
+      <div class="badge"><span class="bi">💰</span> Free Estimates</div>
+    </div>
+  </section>
 
-  const btn = document.getElementById('quoteBtn');
-  if (btn) { btn.textContent = 'SUBMITTING…'; btn.disabled = true; }
 
-  /* Hidden iframe POST — bypasses CORS, keeps user on page */
-  const iframeName = 'basinFrame_' + Date.now();
-  const iframe = document.createElement('iframe');
-  iframe.name  = iframeName;
-  iframe.style.cssText = 'position:absolute;width:0;height:0;border:0;visibility:hidden;';
+  <!-- ══ FOOTER ══════════════════════════════════════════ -->
+  <footer>
+    <div class="ft-logo">GetBathroom.com</div>
+    <nav class="ft-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Contact</a>
+      <a href="#">Do Not Sell My Info</a>
+    </nav>
+    <p class="ft-disc">
+      © 2025 GetBathroom.com. All rights reserved. We may connect you with third-party, independent
+      contractors in your area. Contractor availability, licensing, and pricing vary by location.
+      Submission does not guarantee a quote or any specific outcome.
+    </p>
+  </footer>
 
-  const form = document.createElement('form');
-  form.method = 'POST';
-  form.action = 'https://usebasin.com/f/85e01e3e065b';
-  form.target = iframeName;
-  form.style.display = 'none';
+  <!-- ══ STICKY PILL CTA ═════════════════════════════════ -->
+  <div id="sticky">
+    <a href="tel:+18664382284" class="sticky-pill">
+      <span class="icon">📞</span>
+      <span class="txt">
+        <span class="call-text">CALL NOW</span>
+        <span class="call-num">413-GET-BATH</span>
+      </span>
+    </a>
+  </div>
 
-  const data = { name, phone, zip, jobType, timeframe, source: 'GetBathroom.com' };
-  Object.entries(data).forEach(([k, v]) => {
-    const inp = document.createElement('input');
-    inp.type = 'hidden'; inp.name = k; inp.value = v;
-    form.appendChild(inp);
-  });
+  <!-- ══ JAVASCRIPT ══════════════════════════════════════ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
 
-  document.body.appendChild(iframe);
-  document.body.appendChild(form);
+      var fz    = document.getElementById('fz');
+      var fz2   = document.getElementById('fz2');
+      var fn    = document.getElementById('fn');
+      var fp    = document.getElementById('fp');
+      var fe    = document.getElementById('fe');
+      var fpt   = document.getElementById('fpt');
+      var ftl   = document.getElementById('ftl');
+      var form  = document.getElementById('lead-form');
+      var btn1  = document.getElementById('btn-sub');
+      var btn2  = document.getElementById('btn-submit2');
+      var step1 = document.getElementById('step1-card');
+      var step2 = document.getElementById('s2');
+      var okBox = document.getElementById('ok');
 
-  /* Show modal when iframe loads */
-  iframe.addEventListener('load', function onLoad() {
-    iframe.removeEventListener('load', onLoad);
-    showModal();
-    if (btn) { btn.textContent = 'GET MY FREE QUOTE'; btn.disabled = false; }
-    setTimeout(() => {
-      if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
-      if (form.parentNode)   form.parentNode.removeChild(form);
-    }, 500);
-  });
+      function showErr(el, id) {
+        if (el) el.classList.add('err');
+        var m = document.getElementById(id);
+        if (m) m.classList.add('on');
+      }
+      function clearErr(el, id) {
+        if (el) el.classList.remove('err');
+        var m = document.getElementById(id);
+        if (m) m.classList.remove('on');
+      }
 
-  /* Safety fallback: show modal after 4s regardless */
-  setTimeout(() => {
-    const modal = document.getElementById('thankYouModal');
-    if (modal && modal.style.display !== 'flex') {
-      showModal();
-      if (btn) { btn.textContent = 'GET MY FREE QUOTE'; btn.disabled = false; }
-    }
-  }, 4000);
+      /* ZIP: digits only */
+      fz && fz.addEventListener('input', function () {
+        clearErr(fz, 'e-fz');
+        fz.value = fz.value.replace(/\D/g, '').slice(0, 5);
+      });
+      fz && fz.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); revealStep2(); }
+      });
 
-  form.submit();
-}
+      /* Phone auto-format */
+      fp && fp.addEventListener('input', function () {
+        clearErr(fp, 'e-fp');
+        var d = fp.value.replace(/\D/g,'').slice(0,10);
+        if      (d.length >= 7) fp.value = '(' + d.slice(0,3) + ') ' + d.slice(3,6) + '-' + d.slice(6);
+        else if (d.length >= 4) fp.value = '(' + d.slice(0,3) + ') ' + d.slice(3);
+        else if (d.length >  0) fp.value = '(' + d;
+        else                    fp.value = '';
+      });
 
-/* ── INIT: keyboard shortcuts + modal outside-click ── */
-document.addEventListener('DOMContentLoaded', function() {
-  const zipEl   = document.getElementById('zipInput');
-  const nameEl  = document.getElementById('nameInput');
-  const phoneEl = document.getElementById('phoneInput');
-  const modal   = document.getElementById('thankYouModal');
+      fn  && fn.addEventListener('input',  function () { clearErr(fn,  'e-fn'); });
+      fe  && fe.addEventListener('input',  function () { clearErr(fe,  'e-fe'); });
+      fpt && fpt.addEventListener('change', function () { clearErr(fpt, 'e-fpt'); });
+      ftl && ftl.addEventListener('change', function () { clearErr(ftl, 'e-ftl'); });
 
-  if (zipEl)   zipEl.addEventListener('keydown',   e => { if (e.key === 'Enter') goToStep2(); });
-  if (nameEl)  nameEl.addEventListener('keydown',  e => { if (e.key === 'Enter') { const p = document.getElementById('phoneInput'); if (p) p.focus(); } });
-  if (phoneEl) phoneEl.addEventListener('keydown', e => { if (e.key === 'Enter') submitForm(); });
-  if (modal)   modal.addEventListener('click', function(e) { if (e.target === this) closeModal(); });
-});
-</script>
+      /* ── Step 1: validate ZIP → show step 2 ── */
+      function revealStep2() {
+        clearErr(fz, 'e-fz');
+        if (!fz || !/^\d{5}$/.test(fz.value.trim())) {
+          showErr(fz, 'e-fz'); return;
+        }
+        btn1.classList.add('loading');
+        btn1.disabled = true;
+        setTimeout(function () {
+          btn1.classList.remove('loading');
+          btn1.disabled = false;
+          /* Hide step 1, show step 2 */
+          step1.classList.add('hidden');
+          step2.classList.remove('hidden');
+          /* Pre-fill ZIP */
+          if (fz2) fz2.value = fz.value.trim();
+          /* Scroll & focus */
+          step2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          /* no auto-focus — keeps placeholder gray on all fields */
+        }, 600);
+      }
+
+      btn1 && btn1.addEventListener('click', revealStep2);
+
+      /* ── Step 2: submit via btn2 click (avoids display:none form event blocking) ── */
+      function submitLead() {
+        var valid = true;
+        if (!fn  || fn.value.trim().length < 2)              { showErr(fn,  'e-fn');  valid = false; }
+        if (!fp  || fp.value.replace(/\D/g,'').length < 10)  { showErr(fp,  'e-fp');  valid = false; }
+        if (!fe  || !/^[^@]+@[^@]+\.[^@]+$/.test(fe.value.trim())) { showErr(fe, 'e-fe'); valid = false; }
+        if (!fpt || !fpt.value)                               { showErr(fpt, 'e-fpt'); valid = false; }
+        if (!ftl || !ftl.value)                               { showErr(ftl, 'e-ftl'); valid = false; }
+        if (!valid) {
+          var first = step2.querySelector('.err');
+          if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+        btn2.disabled = true;
+        btn2.classList.add('loading');
+        var fd = new FormData();
+        fd.append('name',         fn.value.trim());
+        fd.append('phone',        fp.value.trim());
+        fd.append('email',        fe.value.trim());
+        fd.append('zip',          fz2.value.trim());
+        fd.append('project_type', fpt.value);
+        fd.append('timeline',     ftl.value);
+        fd.append('page_url',     window.location.href);
+        fd.append('source',       'GetBathroom.com');
+        fetch('https://usebasin.com/f/695e05eae9d3', { method: 'POST', body: fd })
+        .then(function (res) {
+          if (res.ok) {
+            step2.classList.add('hidden');
+            okBox.classList.remove('hidden');
+            okBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            var sticky = document.getElementById('sticky');
+            if (sticky) sticky.style.display = 'none';
+          } else {
+            alert('Something went wrong. Please try again.');
+            btn2.disabled = false;
+            btn2.classList.remove('loading');
+          }
+        })
+        .catch(function () {
+          alert('Something went wrong. Please try again.');
+          btn2.disabled = false;
+          btn2.classList.remove('loading');
+        });
+      }
+
+      /* Wire both click and form submit to catch all interaction patterns */
+      btn2 && btn2.addEventListener('click', function (e) {
+        e.preventDefault();
+        submitLead();
+      });
+      form && form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        submitLead();
+      });
+
+    });
+  </script>
 </body>
 </html>
