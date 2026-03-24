@@ -781,17 +781,23 @@
     });
 
     function showModal() {
-      document.getElementById('successModal').classList.add('open');
+      var m = document.getElementById('successModal');
+      m.classList.add('open');
+      m.removeAttribute('aria-hidden');
+      m.removeAttribute('tabindex');
     }
     function closeModal(e) {
       if (!e || e.target === document.getElementById('successModal')) {
-        document.getElementById('successModal').classList.remove('open');
+        var m = document.getElementById('successModal');
+        m.classList.remove('open');
+        m.setAttribute('aria-hidden', 'true');
+        m.setAttribute('tabindex', '-1');
       }
     }
   </script>
 
   <!-- ══ SUCCESS MODAL ═══════════════════════════════════ -->
-  <div class="modal-overlay" id="successModal" onclick="closeModal(event)">
+  <div class="modal-overlay" id="successModal" onclick="closeModal(event)" aria-hidden="true" tabindex="-1" role="dialog" aria-modal="true" aria-label="Success">
     <div class="modal-card">
       <div class="modal-icon">✅</div>
       <div class="modal-headline">You're All Set!</div>
