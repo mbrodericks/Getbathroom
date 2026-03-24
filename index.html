@@ -413,6 +413,66 @@
       .svc-icon span { font-size: .52rem; }
       .frow { grid-template-columns: 1fr; }
     }
+
+    /* ═══════════════════ SUCCESS MODAL ═══════════════════ */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.65);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeIn .25s ease;
+    }
+    .modal-overlay.open { display: flex; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .modal-card {
+      background: #fff;
+      border-radius: 16px;
+      max-width: 420px;
+      width: 100%;
+      padding: 28px 24px 24px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+      animation: slideUp .3s ease;
+    }
+    @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .modal-icon { font-size: 3rem; margin-bottom: 12px; }
+    .modal-headline { font-size: 1.35rem; font-weight: 900; color: #0d2080; margin-bottom: 10px; }
+    .modal-text { font-size: .95rem; color: #4b5563; line-height: 1.6; margin-bottom: 22px; }
+
+    .modal-cta-red {
+      display: block;
+      width: 100%;
+      padding: 18px 20px;
+      background: linear-gradient(135deg, #b02c0e, #dc2626, #b91c1c);
+      color: #fff;
+      font-size: 1.15rem;
+      font-weight: 900;
+      border: none;
+      border-radius: 14px;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(220,38,38,.6);
+      cursor: pointer;
+      letter-spacing: .3px;
+      margin-bottom: 14px;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .modal-cta-red:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(220,38,38,.7); }
+
+    .modal-close {
+      font-size: .85rem;
+      color: #9ca3af;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 6px 12px;
+    }
+    .modal-close:hover { color: #6b7280; }
   </style>
 </head>
 <body>
@@ -694,6 +754,7 @@
             okBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
             var sticky = document.getElementById('sticky');
             if (sticky) sticky.style.display = 'none';
+            showModal();
           } else {
             alert('Something went wrong. Please try again.');
             btn2.disabled = false;
@@ -718,6 +779,29 @@
       });
 
     });
+
+    function showModal() {
+      document.getElementById('successModal').classList.add('open');
+    }
+    function closeModal(e) {
+      if (!e || e.target === document.getElementById('successModal')) {
+        document.getElementById('successModal').classList.remove('open');
+      }
+    }
   </script>
+
+  <!-- ══ SUCCESS MODAL ═══════════════════════════════════ -->
+  <div class="modal-overlay" id="successModal" onclick="closeModal(event)">
+    <div class="modal-card">
+      <div class="modal-icon">✅</div>
+      <div class="modal-headline">You're All Set!</div>
+      <div class="modal-text">
+        A local contractor will reach out shortly with your free quote.<br><br>
+        <strong>Need help right now?</strong>
+      </div>
+      <a href="tel:+14134382284" class="modal-cta-red">📞 CALL NOW — 413-GET-BATH</a>
+      <button class="modal-close" onclick="closeModal()">Close</button>
+    </div>
+  </div>
 </body>
 </html>
